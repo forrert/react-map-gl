@@ -42,13 +42,22 @@ function mousePos(el, event) {
 function touchPos(el, event) {
   const points = [];
   const rect = el.getBoundingClientRect();
-  for (let i = 0; i < event.touches.length; i++) {
+  const touches = getTouches(event);
+  for (let i = 0; i < touches.length; i++) {
     points.push(new Point(
-      event.touches[i].clientX - rect.left - el.clientLeft,
-      event.touches[i].clientY - rect.top - el.clientTop
+      touches[i].clientX - rect.left - el.clientLeft,
+      touches[i].clientY - rect.top - el.clientTop
     ));
   }
   return points;
+}
+
+function getTouches(event) {
+  const type = event.type;
+  if (type === 'touchend' || type === 'touchcancel') {
+    return event.changedTouches;
+  }
+  return event.touches;
 }
 
 /* eslint-disable max-len */
