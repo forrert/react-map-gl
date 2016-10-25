@@ -59,6 +59,7 @@
   },
   "scripts": {
     "build": "babel src -d dist --copy-files --source-maps inline",
+    "install": "npm run build",
     "start": "budo ./example/main.js --live --open --port 3000 -- -t babelify -t envify",
     "lint": "uber-standard",
     "test": "npm run lint && browserify -t babelify -t envify test/index.js | testron",
